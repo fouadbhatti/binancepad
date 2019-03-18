@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Launchpad emulator</title>
+	</head>
+	<body>
+		<h3>Launchpad emulator</h3>
+		<button id="buyNowBtn" disabled>Log in</button>
+		<script type="text/javascript">
+			let buyNowBtn = document.getElementById("buyNowBtn");
+
+			buyNowBtn.addEventListener("click", function () {
+				document.body.innerHTML = `<div>
+					<input id="purchaseAmount" name="purchaseAmount" type="number" placeholder="Enter purchase amount"/>
+					<input id="captcha" name="captcha" type="text"/>
+					<button disabled id="purchaseNow">Purchase now</button>
+				</div>`;
+
+				let purchaseAmount = document.getElementById("purchaseAmount");
+				let captcha = document.getElementById("captcha");
+				let purchaseNow = document.getElementById("purchaseNow");
+
+				function onChange() {
+					if (purchaseAmount.value.length > 0 && captcha.value.length >= 4) {
+						purchaseNow.removeAttribute("disabled");
+					}
+					else {
+						purchaseNow.disabled = "disabled";
+					}
+				}
+
+				purchaseAmount.addEventListener("keyup", onChange);
+				captcha.addEventListener("keyup", onChange);
+
+				purchaseNow.addEventListener("click", function () {
+					if (purchaseNow.disabled) {
+						alert("button disabled");
+					}
+					else {
+						alert("successful")
+					}
+				});
+			});
+
+			setTimeout(function(){
+				buyNowBtn.innerText = "Buy now";
+				buyNowBtn.removeAttribute("disabled");
+			}, 1000);
+		</script>
+	</body>
+</html>
