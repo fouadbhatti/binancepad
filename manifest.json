@@ -1,0 +1,42 @@
+{
+  "manifest_version": 2,
+  "name": "Binance pad",
+  "version": "1.9",
+  "author": "Ahmed Fouad",
+
+  "icons": {
+    "16": "img/logo32.png",
+    "48": "img/logo32.png",
+    "128": "img/logo32.png"
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "16": "img/logo32.png",
+      "24": "img/logo32.png",
+      "32": "img/logo32.png"
+    },
+    "default_title": "Binance pad"
+  },
+
+  "background": {
+    "scripts": ["js/vendor/jquery-3.2.1.min.js", "js/vendor/lodash.js", "js/vendor/rxjs.min.js", "js/config.js", "js/utils.js", "js/background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://launchpad.binance.com/en/project/*"],
+      "all_frames": false,
+      "js": ["js/vendor/jquery-3.2.1.min.js", "js/vendor/arrive.js", "js/vendor/lodash.js", "js/vendor/rxjs.min.js", "js/config.js", "js/utils.js", "js/content.js"],
+      "css": ["css/main.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": ["tabs", "<all_urls>", "storage", "webRequest", "webRequestBlocking"],
+  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; font-src * data:; connect-src http://* https://*; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data: http://* https://*;",
+  "web_accessible_resources": [
+    "templates/*",
+    "css/*",
+    "js/vendor/*",
+    "img/*"
+  ]
+}
