@@ -10,12 +10,7 @@ class Main {
 	}
 
 	eventChain() {
-		// this.onTokeSaleStarted
-		// 	.subscribe(() => {
-		// 		location.reload();
-		// 	});
-		// Click Buy now
-		this.buyNowButtonSelector$
+		const syncEvents$ = this.buyNowButtonSelector$
 		.do(item => {
 			const $item = $(item);
 			utils.simulateClick($item);
@@ -40,18 +35,20 @@ class Main {
 		})
 		// Wait for user to enter 4 characters
 		.switchMap((item) => {
+			this.verficationInputBox = item;
 			return utils.listenForKeyUpEvent(item);
 		})
-		.filter(item => item.target.value.length >= 4)
-		.switchMap(() => this.confirmPurchaseButtonSelector$)
-		// Click Purchase button
-		.do((item) => {
-			const $item = $(item);
-			utils.simulateClick($item);
-		})
-		.subscribe(() => {
-			console.log('AA');
-		});
+		.filter(item => item.target.value.length >= 4);
+
+
+		Rx.Observable.combineLatest(syncEvents$, this.confirmPurchaseButtonSelector$)
+			.do(([itemA, itemB]) => {
+				const $item = $(itemB);
+				utils.simulateClick($item);
+			})
+			.subscribe(() => {
+				console.log('AA');
+			});
 	}
 }
 
