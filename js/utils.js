@@ -73,6 +73,14 @@ class Utils {
     this.simulateMouseEvent(element, 'click');
   }
 
+  simulateBlur(element) {
+    element.trigger('blur');
+  }
+
+  listenForKeyUpEvent(element) {
+    return Rx.Observable.fromEvent(element, 'keyup');
+  }
+
   onElementArrive(selector) {
     const p = new Promise((resolve) => {
       document.arrive(selector, { existing: true, onceOnly: true, fireOnAttributesModification:true }, (el) => {
