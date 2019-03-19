@@ -5,5 +5,5 @@ const CONFIG = {
  buyNowButtonSelector:"button:contains('Buy now'):not([disabled])",
  timerSelector:'',
  tokePurchaseAmount: 223880,
- delayFocusBlur:1500
+ delayFocusBlur:1000
 };
