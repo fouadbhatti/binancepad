@@ -81,14 +81,12 @@ class Utils {
     return Rx.Observable.fromEvent(element, 'keyup');
   }
 
-  onElementArrive(selector) {
-    const p = new Promise((resolve) => {
-      document.arrive(selector, { existing: true, onceOnly: true, fireOnAttributesModification:true }, (el) => {
+  onElementArrive(selector, onceOnly = true) {
+    return new Promise((resolve) => {
+      document.arrive(selector, { existing: true, onceOnly: onceOnly, fireOnAttributesModification:true }, (el) => {
         resolve(el);
       });
     });
-
-    return Rx.Observable.fromPromise(p);
   }
 }
 const utils = new Utils();
